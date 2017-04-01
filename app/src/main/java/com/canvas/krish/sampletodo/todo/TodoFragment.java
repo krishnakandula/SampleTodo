@@ -42,7 +42,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((TodoApplication)getActivity().getApplication()).getComponent().inject(this);
+        ((TodoApplication) getActivity().getApplication()).getComponent().inject(this);
     }
 
     @Nullable

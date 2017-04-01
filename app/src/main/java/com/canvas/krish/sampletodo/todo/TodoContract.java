@@ -7,7 +7,7 @@ import com.canvas.krish.sampletodo.BaseView;
  * Created by Krishna Chaitanya Kandula on 3/31/2017.
  */
 
-interface TodoContract {
+public interface TodoContract {
     interface View extends BaseView <Presenter>{
         void showTasks();
         void showTaskCompleted();

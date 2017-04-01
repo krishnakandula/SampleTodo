@@ -1,5 +1,6 @@
 package com.canvas.krish.sampletodo.modules;
 
+import com.canvas.krish.sampletodo.todo.TodoContract;
 import com.canvas.krish.sampletodo.todo.TodoPresenter;
 
 import javax.inject.Singleton;
@@ -15,7 +16,7 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public static TodoPresenter providesTodo(){
+    public static TodoContract.Presenter providesTodo(){
         return new TodoPresenter();
     }
 }
