@@ -12,6 +12,7 @@ public class TodoPresenter implements TodoContract.Presenter {
     @Override
     public void start(TodoContract.View view) {
         mTodoView = view;
+        loadTasks();
     }
 
     @Override
