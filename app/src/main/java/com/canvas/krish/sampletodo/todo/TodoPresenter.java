@@ -5,6 +5,8 @@ import android.util.Log;
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -27,15 +29,15 @@ public class TodoPresenter implements TodoContract.Presenter {
     @Override
     public void start(TodoContract.View view) {
         mTodoView = view;
-        loadTasks();
+        loadTodos();
     }
 
     @Override
-    public void loadTasks() {
-        mTodoRepository.getTodo("", new TodoRepositoryContract.GetTodoCallback() {
+    public void loadTodos() {
+        mTodoRepository.getTodos(new TodoRepositoryContract.LoadTodosCallback() {
             @Override
-            public void onTodoLoaded(Todo todo) {
-                Log.d(LOG_TAG, todo.getText());
+            public void onTodosLoaded(List<Todo> todos) {
+                mTodoView.showTodos();
             }
 
             @Override
@@ -46,12 +48,12 @@ public class TodoPresenter implements TodoContract.Presenter {
     }
 
     @Override
-    public void addNewTask() {
+    public void addNewTodo() {
 
     }
 
     @Override
-    public void completeTask() {
+    public void completeTodo() {
 
     }
 }

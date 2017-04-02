@@ -9,15 +9,15 @@ import com.canvas.krish.sampletodo.BaseView;
 
 public interface TodoContract {
     interface View extends BaseView <Presenter>{
-        void showTasks();
-        void showTaskCompleted();
-        void showNoTasks();
+        void showTodos();
+        void showTodoCompleted();
+        void showNoTodo();
         void setLoadingIndicator();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void loadTasks();
-        void addNewTask();
-        void completeTask();
+        void loadTodos();
+        void addNewTodo();
+        void completeTodo();
     }
 }

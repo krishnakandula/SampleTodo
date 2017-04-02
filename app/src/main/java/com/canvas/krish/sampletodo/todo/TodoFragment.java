@@ -3,6 +3,7 @@ package com.canvas.krish.sampletodo.todo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,11 @@ public class TodoFragment extends Fragment implements TodoContract.View{
         return view;
     }
 
+    private void createTodoRecyclerView(){
+        todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -61,17 +67,17 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     @Override
-    public void showTasks() {
+    public void showTodos() {
 
     }
 
     @Override
-    public void showTaskCompleted() {
+    public void showTodoCompleted() {
 
     }
 
     @Override
-    public void showNoTasks() {
+    public void showNoTodo() {
 
     }
 
