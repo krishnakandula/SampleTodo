@@ -2,6 +2,7 @@ package com.canvas.krish.sampletodo.modules;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import javax.inject.Singleton;
 
@@ -22,7 +23,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public Context provdideApplicationContext(){
+    public Context provideApplicationContext(){
         return mApplication;
     }
 }

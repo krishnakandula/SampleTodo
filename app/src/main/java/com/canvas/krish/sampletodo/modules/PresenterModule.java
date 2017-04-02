@@ -16,7 +16,7 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public static TodoContract.Presenter providesTodo(){
+    public TodoContract.Presenter providesTodo(){
         return new TodoPresenter();
     }
 }
