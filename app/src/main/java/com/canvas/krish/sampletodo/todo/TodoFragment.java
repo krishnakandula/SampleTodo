@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.canvas.krish.sampletodo.R;
 import com.canvas.krish.sampletodo.TodoApplication;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -34,6 +36,9 @@ public class TodoFragment extends Fragment implements TodoContract.View{
 
     @BindView(R.id.TodoFragment_Todo_RecyclerView)
     RecyclerView todoRecyclerView;
+
+    @BindView(R.id.fragment_todo_add_todo_btn)
+    Button addTodoBtn;
 
     public static TodoFragment init(){
         Bundle args = new Bundle();
@@ -97,5 +102,10 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+    }
+
+    @OnClick(R.id.fragment_todo_add_todo_btn)
+    public void onAddTodoBtnClick(){
+        mPresenter.addNewTodo();
     }
 }

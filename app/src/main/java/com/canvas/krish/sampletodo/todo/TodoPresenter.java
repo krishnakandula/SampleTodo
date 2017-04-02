@@ -47,7 +47,9 @@ public class TodoPresenter implements TodoContract.Presenter {
 
     @Override
     public void addNewTodo() {
-
+        Todo todo = new Todo();
+        todo.setText("Dragon");
+        mTodoRepository.saveTodo(todo);
     }
 
     @Override

@@ -17,6 +17,9 @@ public class Todo {
     public Todo(){
         UUID id = UUID.randomUUID();
         setUuid(id);
+        completed = false;
+        createdOn = new Timestamp(System.currentTimeMillis());
+        completedOn = null;
     }
 
     public String getText() {

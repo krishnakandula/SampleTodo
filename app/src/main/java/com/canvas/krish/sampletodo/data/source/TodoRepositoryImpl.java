@@ -39,9 +39,10 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
         ContentValues values = new ContentValues();
         values.put(TodoTable.Cols.UUID, todo.getUuid().toString());
         values.put(TodoTable.Cols.TEXT, todo.getText());
-        values.put(TodoTable.Cols.COMPLETED, todo.isCompleted());
+        values.put(TodoTable.Cols.COMPLETED, todo.isCompleted() ? 1 : 0);
         values.put(TodoTable.Cols.CREATED_ON, todo.getCreatedOn().toString());
-        values.put(TodoTable.Cols.COMPLETED_ON, todo.getCompletedOn().toString());
+        if(todo.getCompletedOn() != null)
+            values.put(TodoTable.Cols.COMPLETED_ON, todo.getCompletedOn().toString());
 
         return values;
     }

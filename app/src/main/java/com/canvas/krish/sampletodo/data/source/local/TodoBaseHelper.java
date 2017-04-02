@@ -12,7 +12,7 @@ import static com.canvas.krish.sampletodo.data.source.local.TodoDbSchema.*;
 
 public class TodoBaseHelper extends SQLiteOpenHelper {
 
-    private static final int VERSION = 1;
+    private static final int VERSION = 4;
     private static final String DB_NAME = "todo.db";
 
     public TodoBaseHelper(Context context){
@@ -22,16 +22,20 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createStatement = "CREATE TABLE " + TodoTable.NAME + "(" +
-                                    TodoTable.Cols.UUID +   "INTEGER    primary key    NOT NULL, " +
-                                    TodoTable.Cols.TEXT  +   "TEXT      NOT NULL, " +
-                                    TodoTable.Cols.COMPLETED + "INTEGER, " +
-                                    TodoTable.Cols.CREATED_ON + "DATETIME   NOT NULL, " +
-                                    TodoTable.Cols.COMPLETED_ON + "DATETIME)";
+                                    TodoTable.Cols.UUID +   " primary key    NOT NULL, " +
+                                    TodoTable.Cols.TEXT  +   " NOT NULL, " +
+                                    TodoTable.Cols.COMPLETED + "  NOT NULL, " +
+                                    TodoTable.Cols.CREATED_ON + "  DEFAULT CURRENT_TIMESTAMP NOT NULL, " +
+                                    TodoTable.Cols.COMPLETED_ON + " )";
         db.execSQL(createStatement);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // TODO: 4/2/17 Change drop table to some kind of alter statement
+        String dropStatement = "DROP TABLE IF EXISTS " + TodoTable.NAME;
+        db.execSQL(dropStatement);
+        //Recreate table
+        onCreate(db);
     }
 }
