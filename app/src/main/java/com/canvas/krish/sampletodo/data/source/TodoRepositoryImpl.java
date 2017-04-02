@@ -2,16 +2,17 @@ package com.canvas.krish.sampletodo.data.source;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.local.TodoBaseHelper;
-import com.canvas.krish.sampletodo.data.source.local.TodoDbSchema;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.canvas.krish.sampletodo.data.source.local.TodoDbSchema.*;
+import static com.canvas.krish.sampletodo.data.source.local.TodoDbSchema.TodoTable;
 
 /**
  * Created by Krishna Chaitanya Kandula on 4/1/2017.
@@ -56,16 +57,36 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
     @Override
     public void getTodos(LoadTodosCallback callback) {
-        if(cachedData == null) {
-
+//        if(cachedData == null) {
+//
+//        } else {
+//            Todo todo = new Todo();
+//            todo.setText("1");
+//            List<Todo> todoList = new ArrayList<>();
+//            todoList.add(todo);
+//            callback.onTodosLoaded(todoList);
+//        }
+        List<Todo> todos = new ArrayList<>();
+        //Gets everything
+        CursorWrapper cursor = queryTodos(null, null);
+        if(cursor.getCount() == 0) {
+            cursor.close();
+            callback.onDataNotAvailable();
         } else {
-            Todo todo = new Todo();
-            todo.setText("1");
-            List<Todo> todoList = new ArrayList<>();
-            todoList.add(todo);
-            callback.onTodosLoaded(todoList);
+            cursor.moveToFirst();
         }
+    }
 
+    private CursorWrapper queryTodos(String whereClause, String[] whereArgs){
+        Cursor cursor = mDatabase.query(
+                                        TodoTable.NAME,
+                                        null,
+                                        whereClause,
+                                        whereArgs,
+                                        null,
+                                        null,
+                                        null);
+        return new CursorWrapper(cursor);
     }
 
     @Override
