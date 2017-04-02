@@ -15,8 +15,14 @@ public class TodoPresenter implements TodoContract.Presenter {
 
     private static final String LOG_TAG = TodoPresenter.class.getSimpleName();
 
+
     TodoRepositoryContract mTodoRepository;
     private TodoContract.View mTodoView;
+
+    @Inject
+    public TodoPresenter(TodoRepositoryContract todoRepository){
+        mTodoRepository = todoRepository;
+    }
 
     @Override
     public void start(TodoContract.View view) {
