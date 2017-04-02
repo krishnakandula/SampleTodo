@@ -57,15 +57,6 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
     @Override
     public void getTodos(LoadTodosCallback callback) {
-//        if(cachedData == null) {
-//
-//        } else {
-//            Todo todo = new Todo();
-//            todo.setText("1");
-//            List<Todo> todoList = new ArrayList<>();
-//            todoList.add(todo);
-//            callback.onTodosLoaded(todoList);
-//        }
         List<Todo> todos = new ArrayList<>();
         //Gets everything
         TodoCursorWrapper cursor = queryTodos(null, null);
@@ -74,6 +65,12 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
             callback.onDataNotAvailable();
         } else {
             cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                todos.add(cursor.getTodo());
+                cursor.moveToNext();
+            }
+            cursor.close();
+            callback.onTodosLoaded(todos);
         }
     }
 
