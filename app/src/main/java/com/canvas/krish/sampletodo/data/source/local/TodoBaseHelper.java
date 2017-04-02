@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static com.canvas.krish.sampletodo.data.source.local.TodoDbSchema.*;
 
 /**
- * Created by krishnakandula on 4/1/17.
+ * Created by Krishna Chaitanya Kandula on 4/1/17.
  */
 
 public class TodoBaseHelper extends SQLiteOpenHelper {

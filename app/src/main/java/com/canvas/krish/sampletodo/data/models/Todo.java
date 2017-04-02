@@ -1,6 +1,7 @@
 package com.canvas.krish.sampletodo.data.models;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -20,6 +21,15 @@ public class Todo {
         completed = false;
         createdOn = new Timestamp(System.currentTimeMillis());
         completedOn = null;
+    }
+
+    public Todo(UUID uuid, String text, boolean completed, Date createdOn, Date completedOn){
+        this.uuid = uuid;
+        this.text = text;
+        this.completed = completed;
+        // TODO: 4/2/2017 Change createdOn and completedOn to Date types 
+//        this.createdOn = createdOn;
+//        this.completedOn = completedOn;
     }
 
     public String getText() {
