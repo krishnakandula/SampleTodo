@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.local.TodoBaseHelper;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Krishna Chaitanya Kandula on 4/1/2017.
@@ -16,9 +17,12 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
     private TodoBaseHelper mDbHelper;
     private SQLiteDatabase mDatabase;
 
+    private List<Todo> cachedData;
+
     public TodoRepositoryImpl(Context context){
         mDbHelper = new TodoBaseHelper(context);
         mDatabase = mDbHelper.getWritableDatabase();
+        cachedData = new ArrayList<>();
     }
 
     @Override
@@ -35,6 +39,15 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
     @Override
     public void getTodos(LoadTodosCallback callback) {
+        if(cachedData == null) {
+
+        } else {
+            Todo todo = new Todo();
+            todo.setText("1");
+            List<Todo> todoList = new ArrayList<>();
+            todoList.add(todo);
+            callback.onTodosLoaded(todoList);
+        }
 
     }
 

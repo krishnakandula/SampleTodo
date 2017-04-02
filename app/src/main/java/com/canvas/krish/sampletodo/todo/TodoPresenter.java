@@ -1,7 +1,5 @@
 package com.canvas.krish.sampletodo.todo;
 
-import android.util.Log;
-
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
 
@@ -37,7 +35,7 @@ public class TodoPresenter implements TodoContract.Presenter {
         mTodoRepository.getTodos(new TodoRepositoryContract.LoadTodosCallback() {
             @Override
             public void onTodosLoaded(List<Todo> todos) {
-                mTodoView.showTodos();
+                mTodoView.showTodos(todos);
             }
 
             @Override

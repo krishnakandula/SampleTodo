@@ -2,6 +2,9 @@ package com.canvas.krish.sampletodo.todo;
 
 import com.canvas.krish.sampletodo.BasePresenter;
 import com.canvas.krish.sampletodo.BaseView;
+import com.canvas.krish.sampletodo.data.models.Todo;
+
+import java.util.List;
 
 /**
  * Created by Krishna Chaitanya Kandula on 3/31/2017.
@@ -9,7 +12,7 @@ import com.canvas.krish.sampletodo.BaseView;
 
 public interface TodoContract {
     interface View extends BaseView <Presenter>{
-        void showTodos();
+        void showTodos(List<Todo> todoList);
         void showTodoCompleted();
         void showNoTodo();
         void setLoadingIndicator();

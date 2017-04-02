@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.canvas.krish.sampletodo.R;
 import com.canvas.krish.sampletodo.TodoApplication;
+import com.canvas.krish.sampletodo.data.models.Todo;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +30,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     @Inject
     TodoContract.Presenter mPresenter;
     private Unbinder mUnbinder;
+    private TodoListAdapter mAdapter;
 
     @BindView(R.id.TodoFragment_Todo_RecyclerView)
     RecyclerView todoRecyclerView;
@@ -52,12 +56,14 @@ public class TodoFragment extends Fragment implements TodoContract.View{
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
+        setupRecyclerView();
         return view;
     }
 
-    private void createTodoRecyclerView(){
+    private void setupRecyclerView(){
+        mAdapter = new TodoListAdapter(getContext());
+        todoRecyclerView.setAdapter(mAdapter);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
     }
 
     @Override
@@ -67,8 +73,9 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     @Override
-    public void showTodos() {
-
+    public void showTodos(List<Todo> todoList) {
+        mAdapter.setData(todoList);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
