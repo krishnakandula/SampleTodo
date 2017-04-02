@@ -22,7 +22,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createStatement = "CREATE TABLE " + TodoTable.NAME + "(" +
-                                    TodoTable.Cols.UUID +   "INTEGER    primary key,    NOT NULL " +
+                                    TodoTable.Cols.UUID +   "INTEGER    primary key    NOT NULL, " +
                                     TodoTable.Cols.TEXT  +   "TEXT      NOT NULL, " +
                                     TodoTable.Cols.COMPLETED + "INTEGER, " +
                                     TodoTable.Cols.CREATED_ON + "DATETIME   NOT NULL, " +

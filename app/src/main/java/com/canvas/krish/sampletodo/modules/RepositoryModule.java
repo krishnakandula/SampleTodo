@@ -16,12 +16,11 @@ import dagger.Provides;
  */
 @Module
 public class RepositoryModule {
-    @Inject
-    Context context;
 
-    @Provides
     @Singleton
-    public TodoRepositoryContract providesTodo(){
+    @Provides
+    @Inject
+    public TodoRepositoryContract providesTodo(Context context){
         return new TodoRepositoryImpl(context);
     }
 }

@@ -1,5 +1,6 @@
 package com.canvas.krish.sampletodo.modules;
 
+import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
 import com.canvas.krish.sampletodo.todo.TodoContract;
 import com.canvas.krish.sampletodo.todo.TodoPresenter;
 
@@ -16,7 +17,7 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public TodoContract.Presenter providesTodo(){
-        return new TodoPresenter();
+    public TodoContract.Presenter providesTodo(TodoRepositoryContract repositoryContract){
+        return new TodoPresenter(repositoryContract);
     }
 }
