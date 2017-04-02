@@ -1,13 +1,17 @@
 package com.canvas.krish.sampletodo.data.source;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.local.TodoBaseHelper;
+import com.canvas.krish.sampletodo.data.source.local.TodoDbSchema;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.canvas.krish.sampletodo.data.source.local.TodoDbSchema.*;
 
 /**
  * Created by Krishna Chaitanya Kandula on 4/1/2017.
@@ -27,7 +31,19 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
     @Override
     public void saveTodo(Todo todo) {
+        ContentValues values = getContentValues(todo);
+        mDatabase.insert(TodoTable.NAME, null, values);
+    }
 
+    private ContentValues getContentValues(Todo todo){
+        ContentValues values = new ContentValues();
+        values.put(TodoTable.Cols.UUID, todo.getUuid().toString());
+        values.put(TodoTable.Cols.TEXT, todo.getText());
+        values.put(TodoTable.Cols.COMPLETED, todo.isCompleted());
+        values.put(TodoTable.Cols.CREATED_ON, todo.getCreatedOn().toString());
+        values.put(TodoTable.Cols.COMPLETED_ON, todo.getCompletedOn().toString());
+
+        return values;
     }
 
     @Override

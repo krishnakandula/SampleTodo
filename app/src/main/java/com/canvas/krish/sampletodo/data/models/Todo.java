@@ -1,16 +1,23 @@
 package com.canvas.krish.sampletodo.data.models;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Created by krishnakandula on 4/1/17.
  */
 
 public class Todo {
+    private UUID uuid;
     private String text;
     private boolean completed;
     private Timestamp createdOn;
     private Timestamp completedOn;
+
+    public Todo(){
+        UUID id = UUID.randomUUID();
+        setUuid(id);
+    }
 
     public String getText() {
         return text;
@@ -18,6 +25,14 @@ public class Todo {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public boolean isCompleted() {
