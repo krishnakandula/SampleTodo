@@ -3,11 +3,11 @@ package com.canvas.krish.sampletodo.data.source;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.local.TodoBaseHelper;
+import com.canvas.krish.sampletodo.data.source.local.TodoCursorWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 //        }
         List<Todo> todos = new ArrayList<>();
         //Gets everything
-        CursorWrapper cursor = queryTodos(null, null);
+        TodoCursorWrapper cursor = queryTodos(null, null);
         if(cursor.getCount() == 0) {
             cursor.close();
             callback.onDataNotAvailable();
@@ -77,7 +77,7 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
         }
     }
 
-    private CursorWrapper queryTodos(String whereClause, String[] whereArgs){
+    private TodoCursorWrapper queryTodos(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
                                         TodoTable.NAME,
                                         null,
@@ -86,7 +86,7 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
                                         null,
                                         null,
                                         null);
-        return new CursorWrapper(cursor);
+        return new TodoCursorWrapper(cursor);
     }
 
     @Override
