@@ -20,12 +20,12 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
     }
 
     @Override
-    public void getTodo(String todoId) {
+    public void getTodo(String todoId, GetTodoCallback callback) {
 
     }
 
     @Override
-    public void getTodos() {
+    public void getTodos(LoadTodosCallback callback) {
 
     }
 

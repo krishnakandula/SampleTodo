@@ -2,13 +2,25 @@ package com.canvas.krish.sampletodo.data.source;
 
 import com.canvas.krish.sampletodo.data.models.Todo;
 
+import java.util.List;
+
 /**
  * Created by krishnakandula on 4/1/17.
  */
 
 public interface TodoRepositoryContract {
     void saveTodo(Todo todo);
-    void getTodo(String todoId);
-    void getTodos();
+    void getTodo(String todoId, GetTodoCallback callback);
+    void getTodos(LoadTodosCallback callback);
     void deleteTodo(String todoId);
+
+    interface LoadTodosCallback {
+        void onTodosLoaded(List<Todo> todos);
+        void onDataNotAvailable();
+    }
+
+    interface GetTodoCallback {
+        void onTodoLoaded(Todo todo);
+        void onDataNotAvailable();
+    }
 }
