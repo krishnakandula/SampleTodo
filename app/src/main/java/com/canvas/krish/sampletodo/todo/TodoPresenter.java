@@ -31,6 +31,7 @@ public class TodoPresenter implements TodoContract.Presenter {
 
     @Override
     public void loadTodos() {
+        //Need to force update here
         mTodoRepository.getTodos(new TodoRepositoryContract.LoadTodosCallback() {
             @Override
             public void onTodosLoaded(List<Todo> todos) {
@@ -41,7 +42,7 @@ public class TodoPresenter implements TodoContract.Presenter {
             public void onDataNotAvailable() {
                 //Create toast saying not data found
             }
-        });
+        }, true);
     }
 
     @Override
@@ -49,6 +50,18 @@ public class TodoPresenter implements TodoContract.Presenter {
         Todo todo = new Todo();
         todo.setText("Dragon");
         mTodoRepository.saveTodo(todo);
+        //Don't need to force update here
+        mTodoRepository.getTodos(new TodoRepositoryContract.LoadTodosCallback() {
+            @Override
+            public void onTodosLoaded(List<Todo> todos) {
+                mTodoView.showTodos(todos);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        }, false);
     }
 
     @Override
