@@ -56,6 +56,32 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         notifyDataSetChanged();
     }
 
+    /**
+     * Moves a todoitem to the bottom of the list
+     * @param todoId
+     */
+    public void moveTodoItemToBottom(UUID todoId){
+        int todoIndex = 0; //Not found
+        boolean found = false;
+
+        while(todoIndex < data.size()){
+            Todo current = data.get(todoIndex);
+            if(current.getUuid().equals(todoId)){
+                found = true;
+                break;
+            }
+            todoIndex++;
+        }
+
+        //Move item in data list to end
+        if(found){
+            Todo todo = data.get(todoIndex);
+            data.remove(todoIndex);
+            data.add(todo);
+            notifyItemMoved(todoIndex, data.size() - 1);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return data.size();

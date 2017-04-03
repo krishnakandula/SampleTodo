@@ -71,7 +71,12 @@ public class TodoPresenter implements TodoContract.Presenter {
 
     @Override
     public void completeTodo(UUID todoId, boolean isCompleted) {
-        if(isCompleted)
+        if(isCompleted) {
             mTodoView.showTodoCompleted();
+            //Move to bottom of list
+            mTodoView.moveTodoToBottom(todoId);
+        }
+
+        //Update db
     }
 }

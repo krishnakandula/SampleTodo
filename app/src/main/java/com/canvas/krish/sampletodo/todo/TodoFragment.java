@@ -123,6 +123,11 @@ public class TodoFragment extends Fragment implements TodoContract.View{
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void moveTodoToBottom(UUID todoId) {
+        mAdapter.moveTodoItemToBottom(todoId);
+    }
+
     private SwipeRefreshLayout.OnRefreshListener onSwipeRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {

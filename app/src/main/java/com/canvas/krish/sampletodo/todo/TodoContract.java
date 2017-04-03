@@ -17,6 +17,7 @@ public interface TodoContract {
         void showTodoCompleted();
         void showLoadingIndicator(boolean isLoading);
         void showMessage(String message);
+        void moveTodoToBottom(UUID todoId);
     }
 
     interface Presenter extends BasePresenter<View> {
