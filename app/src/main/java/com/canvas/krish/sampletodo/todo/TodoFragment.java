@@ -94,7 +94,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     @Override
-    public void setLoadingIndicator() {
+    public void setLoadingIndicator(boolean isLoading) {
 
     }
 
