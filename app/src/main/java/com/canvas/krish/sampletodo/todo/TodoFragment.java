@@ -17,6 +17,7 @@ import com.canvas.krish.sampletodo.TodoApplication;
 import com.canvas.krish.sampletodo.data.models.Todo;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.canvas.krish.sampletodo.todo.TodoListAdapter.*;
 
 /**
  * Created by Krishna Chaitanya Kandula on 3/31/2017.
@@ -72,7 +75,12 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     private void setupRecyclerView(){
-        mAdapter = new TodoListAdapter(getContext());
+        mAdapter = new TodoListAdapter(getContext(), new TodoItemViewChangeListenener() {
+            @Override
+            public void onCompletedChanged(UUID todoId, boolean isCompleted) {
+                mPresenter.completeTodo(todoId, isCompleted);
+            }
+        });
         todoRecyclerView.setAdapter(mAdapter);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -91,7 +99,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
 
     @Override
     public void showTodoCompleted() {
-
+        showMessage("Task completed!");
     }
 
     @Override

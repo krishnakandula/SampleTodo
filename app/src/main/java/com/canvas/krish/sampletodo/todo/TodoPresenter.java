@@ -4,6 +4,7 @@ import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -69,7 +70,8 @@ public class TodoPresenter implements TodoContract.Presenter {
     }
 
     @Override
-    public void completeTodo() {
-
+    public void completeTodo(UUID todoId, boolean isCompleted) {
+        if(isCompleted)
+            mTodoView.showTodoCompleted();
     }
 }
