@@ -1,6 +1,7 @@
 package com.canvas.krish.sampletodo.data.models;
 
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,14 +13,16 @@ public class Todo {
     private UUID uuid;
     private String text;
     private boolean completed;
-    private Timestamp createdOn;
-    private Timestamp completedOn;
+    private Date createdOn;
+    private Date completedOn;
+
+    public static DateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public Todo(){
         UUID id = UUID.randomUUID();
         setUuid(id);
         completed = false;
-        createdOn = new Timestamp(System.currentTimeMillis());
+        createdOn = new Date();
         completedOn = null;
     }
 
@@ -28,8 +31,8 @@ public class Todo {
         this.text = text;
         this.completed = completed;
         // TODO: 4/2/2017 Change createdOn and completedOn to Date types 
-//        this.createdOn = createdOn;
-//        this.completedOn = completedOn;
+        this.createdOn = createdOn;
+        this.completedOn = completedOn;
     }
 
     public String getText() {
@@ -56,19 +59,19 @@ public class Todo {
         this.completed = completed;
     }
 
-    public Timestamp getCreatedOn() {
+    public Date getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Timestamp createdOn) {
+    public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Timestamp getCompletedOn() {
+    public Date getCompletedOn() {
         return completedOn;
     }
 
-    public void setCompletedOn(Timestamp completedOn) {
+    public void setCompletedOn(Date completedOn) {
         this.completedOn = completedOn;
     }
 }

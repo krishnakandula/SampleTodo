@@ -11,6 +11,7 @@ import com.canvas.krish.sampletodo.data.source.local.TodoCursorWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.canvas.krish.sampletodo.data.source.local.TodoDbSchema.TodoTable;
 
@@ -32,8 +33,12 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
     @Override
     public void saveTodo(Todo todo) {
+        //Insert into database
         ContentValues values = getContentValues(todo);
         mDatabase.insert(TodoTable.NAME, null, values);
+
+        //Insert into cached data
+        cachedData.add(todo);
     }
 
     private ContentValues getContentValues(Todo todo){
@@ -49,10 +54,11 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
     }
 
     @Override
-    public void getTodo(String todoId, GetTodoCallback callback) {
-        Todo todo = new Todo();
-        todo.setText("Hello, World!");
-        callback.onTodoLoaded(todo);
+    public void getTodo(UUID todoId, GetTodoCallback callback) {
+        String whereClause = TodoTable.Cols.UUID + " = ?";
+        String[] whereArgs = new String[]{todoId.toString()};
+
+        TodoCursorWrapper cursor = queryTodos(whereClause, whereArgs);
     }
 
     @Override
@@ -62,6 +68,7 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
         TodoCursorWrapper cursor = queryTodos(null, null);
         if(cursor.getCount() == 0) {
             cursor.close();
+            cachedData.clear();
             callback.onDataNotAvailable();
         } else {
             cursor.moveToFirst();
@@ -70,6 +77,8 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
                 cursor.moveToNext();
             }
             cursor.close();
+            cachedData.clear();
+            cachedData.addAll(todos);
             callback.onTodosLoaded(todos);
         }
     }
