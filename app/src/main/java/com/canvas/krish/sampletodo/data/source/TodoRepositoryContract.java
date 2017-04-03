@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface TodoRepositoryContract {
     void saveTodo(Todo todo);
     void getTodo(UUID todoId, GetTodoCallback callback);
-    void getTodos(LoadTodosCallback callback);
+    void getTodos(LoadTodosCallback callback, boolean forceUpdate);
     void deleteTodo(String todoId);
 
     interface LoadTodosCallback {

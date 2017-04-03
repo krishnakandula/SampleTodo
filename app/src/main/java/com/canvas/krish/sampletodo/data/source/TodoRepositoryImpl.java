@@ -62,24 +62,29 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
     }
 
     @Override
-    public void getTodos(LoadTodosCallback callback) {
+    public void getTodos(LoadTodosCallback callback, boolean forceUpdate) {
         List<Todo> todos = new ArrayList<>();
-        //Gets everything
-        TodoCursorWrapper cursor = queryTodos(null, null);
-        if(cursor.getCount() == 0) {
-            cursor.close();
-            cachedData.clear();
-            callback.onDataNotAvailable();
-        } else {
-            cursor.moveToFirst();
-            while(!cursor.isAfterLast()){
-                todos.add(cursor.getTodo());
-                cursor.moveToNext();
+        if(forceUpdate || cachedData == null || cachedData.isEmpty()) {
+            //Gets everything from db and refreshes cache
+            TodoCursorWrapper cursor = queryTodos(null, null);
+            if (cursor.getCount() == 0) {
+                cursor.close();
+                cachedData.clear();
+                callback.onDataNotAvailable();
+            } else {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    todos.add(cursor.getTodo());
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                cachedData.clear();
+                cachedData.addAll(todos);
+                callback.onTodosLoaded(todos);
             }
-            cursor.close();
-            cachedData.clear();
-            cachedData.addAll(todos);
-            callback.onTodosLoaded(todos);
+        } else {
+            //Returns whatever is in cache
+            callback.onTodosLoaded(cachedData);
         }
     }
 

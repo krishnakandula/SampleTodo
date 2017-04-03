@@ -15,7 +15,6 @@ public class TodoPresenter implements TodoContract.Presenter {
 
     private static final String LOG_TAG = TodoPresenter.class.getSimpleName();
 
-
     TodoRepositoryContract mTodoRepository;
     private TodoContract.View mTodoView;
 
@@ -40,7 +39,7 @@ public class TodoPresenter implements TodoContract.Presenter {
 
             @Override
             public void onDataNotAvailable() {
-
+                //Create toast saying not data found
             }
         });
     }
