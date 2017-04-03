@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SampleTodo</string>
+
+    <string name="fragment_todo_add_todo_btn_txt">Add Todo</string>
 </resources>

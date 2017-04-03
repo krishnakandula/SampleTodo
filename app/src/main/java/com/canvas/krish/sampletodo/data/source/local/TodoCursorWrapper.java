@@ -28,7 +28,9 @@ public class TodoCursorWrapper extends CursorWrapper {
 
         UUID uuid = UUID.fromString(uuidString);
         Date createdOn = new Date(createdOnString);
-        Date completedOn = new Date(completedOnString);
+        Date completedOn = null;
+        if(completedOnString != null && !completedOnString.isEmpty())
+            completedOn = new Date(completedOnString);
 
         return new Todo(uuid, text, completed, createdOn, completedOn);
     }
