@@ -45,6 +45,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     }
 
     public void setData(List<Todo> data){
+        //Remove all items from recyclerview
+        notifyItemRangeRemoved(0, getItemCount() - 1);
         this.data.clear();
         this.data.addAll(data);
         notifyDataSetChanged();

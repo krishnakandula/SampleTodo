@@ -15,7 +15,8 @@ public interface TodoContract {
         void showTodos(List<Todo> todoList);
         void showTodoCompleted();
         void showNoTodo();
-        void setLoadingIndicator(boolean isLoading);
+        void showLoadingIndicator(boolean isLoading);
+        void showMessage(String message);
     }
 
     interface Presenter extends BasePresenter<View> {

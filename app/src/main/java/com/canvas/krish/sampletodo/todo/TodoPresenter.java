@@ -31,6 +31,8 @@ public class TodoPresenter implements TodoContract.Presenter {
 
     @Override
     public void loadTodos() {
+        //Show loading indicator
+        mTodoView.showLoadingIndicator(true);
         //Need to force update here
         mTodoRepository.getTodos(new TodoRepositoryContract.LoadTodosCallback() {
             @Override
@@ -43,6 +45,7 @@ public class TodoPresenter implements TodoContract.Presenter {
                 //Create toast saying not data found
             }
         }, true);
+        mTodoView.showLoadingIndicator(false);
     }
 
     @Override
@@ -59,7 +62,8 @@ public class TodoPresenter implements TodoContract.Presenter {
 
             @Override
             public void onDataNotAvailable() {
-
+                String errorMessage = "Could not update todo list";
+                mTodoView.showMessage(errorMessage);
             }
         }, false);
     }

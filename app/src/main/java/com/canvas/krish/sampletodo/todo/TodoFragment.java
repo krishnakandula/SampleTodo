@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.canvas.krish.sampletodo.R;
 import com.canvas.krish.sampletodo.TodoApplication;
@@ -99,8 +100,8 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     @Override
-    public void setLoadingIndicator(boolean isLoading) {
-
+    public void showLoadingIndicator(boolean isLoading) {
+        listSwipeRefreshLayout.setRefreshing(isLoading);
     }
 
     @Override
@@ -114,10 +115,15 @@ public class TodoFragment extends Fragment implements TodoContract.View{
         mPresenter.addNewTodo();
     }
 
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
     private SwipeRefreshLayout.OnRefreshListener onSwipeRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-
+            mPresenter.loadTodos();
         }
     };
 }
