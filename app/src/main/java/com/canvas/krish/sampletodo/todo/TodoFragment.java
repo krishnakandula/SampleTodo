@@ -3,6 +3,7 @@ package com.canvas.krish.sampletodo.todo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +41,9 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     @BindView(R.id.fragment_todo_add_todo_btn)
     Button addTodoBtn;
 
+    @BindView(R.id.fragment_todo_list_swipe_refresh_layout)
+    SwipeRefreshLayout listSwipeRefreshLayout;
+
     public static TodoFragment init(){
         Bundle args = new Bundle();
 
@@ -62,6 +66,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
         mUnbinder = ButterKnife.bind(this, view);
 
         setupRecyclerView();
+        listSwipeRefreshLayout.setOnRefreshListener(onSwipeRefreshListener);
         return view;
     }
 
@@ -108,4 +113,11 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     public void onAddTodoBtnClick(){
         mPresenter.addNewTodo();
     }
+
+    private SwipeRefreshLayout.OnRefreshListener onSwipeRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+
+        }
+    };
 }
