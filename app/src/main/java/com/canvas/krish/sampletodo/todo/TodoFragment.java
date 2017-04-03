@@ -95,11 +95,6 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     @Override
-    public void showNoTodo() {
-
-    }
-
-    @Override
     public void showLoadingIndicator(boolean isLoading) {
         listSwipeRefreshLayout.setRefreshing(isLoading);
     }
