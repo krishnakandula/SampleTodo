@@ -75,7 +75,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     private void setupRecyclerView(){
-        mAdapter = new TodoListAdapter(getContext(), new TodoItemViewChangeListenener() {
+        mAdapter = new TodoListAdapter(getContext(), new TodoItemViewChangeListener() {
             @Override
             public void onCompletedChanged(UUID todoId, boolean isCompleted) {
                 mPresenter.completeTodo(todoId, isCompleted);

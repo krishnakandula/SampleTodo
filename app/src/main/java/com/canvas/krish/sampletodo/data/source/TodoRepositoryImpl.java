@@ -69,7 +69,7 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
         callback.onTodosLoaded(cachedData);
     }
 
-    private void updateCache(){
+    public void updateCache(){
         List<Todo> todos = new ArrayList<>();
         //Gets everything from db and refreshes cache
         TodoCursorWrapper cursor = queryTodos(null, null);
@@ -101,7 +101,28 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
     }
 
     @Override
-    public void deleteTodo(String todoId) {
+    public void deleteTodo(UUID todoId) {
 
+    }
+
+    @Override
+    public void updateTodo(Todo todo) {
+        //Update cache
+        for(Todo t : cachedData){
+            if(todo.getUuid().equals(t.getUuid())){
+                t.setText(todo.getText());
+                t.setCompleted(todo.isCompleted());
+                t.setCompletedOn(todo.getCompletedOn());
+            }
+        }
+
+        //Update db
+        int completed = todo.isCompleted() ? 1 : 0;
+        String updateStatement = "UPDATE " + TodoTable.NAME +
+                                    " SET " + TodoTable.Cols.TEXT + " = " + todo.getText() +
+                                    ", " + TodoTable.Cols.COMPLETED + " = " + completed +
+                                    ", " + TodoTable.Cols.COMPLETED_ON + " = " + todo.getCompletedOn().toString() +
+                                    " WHERE " + TodoTable.Cols.UUID + " = " + todo.getUuid().toString();
+        mDatabase.execSQL(updateStatement);
     }
 }

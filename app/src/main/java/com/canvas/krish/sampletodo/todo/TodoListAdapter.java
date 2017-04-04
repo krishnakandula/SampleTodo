@@ -27,9 +27,9 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
     private Context mContext;
     private List<Todo> data;
-    private TodoItemViewChangeListenener mChangeListenener;
+    private TodoItemViewChangeListener mChangeListenener;
 
-    protected TodoListAdapter(Context context, TodoItemViewChangeListenener changeListenener){
+    protected TodoListAdapter(Context context, TodoItemViewChangeListener changeListenener){
         mContext = context;
         data = new ArrayList<>();
         mChangeListenener = changeListenener;
@@ -120,7 +120,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     /**
      * Interface for getting changes from TodoListAdapter
      */
-    interface TodoItemViewChangeListenener {
+    interface TodoItemViewChangeListener {
         void onCompletedChanged(UUID todoId, boolean isCompleted);
     }
 }

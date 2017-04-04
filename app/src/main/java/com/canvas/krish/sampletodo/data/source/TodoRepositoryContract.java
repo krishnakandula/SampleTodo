@@ -13,7 +13,8 @@ public interface TodoRepositoryContract {
     void saveTodo(Todo todo);
     void getTodo(UUID todoId, GetTodoCallback callback);
     void getTodos(LoadTodosCallback callback, boolean forceUpdate);
-    void deleteTodo(String todoId);
+    void deleteTodo(UUID todoId);
+    void updateTodo(Todo todo);
 
     interface LoadTodosCallback {
         void onTodosLoaded(List<Todo> todos);
