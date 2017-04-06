@@ -70,7 +70,7 @@ public class TodoPresenter implements TodoContract.Presenter {
     }
 
     @Override
-    public void completeTodo(UUID todoId, boolean isCompleted) {
+    public void completeTodo(UUID todoId, final boolean isCompleted) {
         if(isCompleted) {
             mTodoView.showTodoCompleted();
             //Move to bottom of list
@@ -78,5 +78,17 @@ public class TodoPresenter implements TodoContract.Presenter {
         }
 
         //Update db
+        mTodoRepository.getTodo(todoId, new TodoRepositoryContract.GetTodoCallback() {
+            @Override
+            public void onTodoLoaded(Todo todo) {
+                todo.setCompleted(isCompleted);
+                mTodoRepository.updateTodo(todo);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 }
