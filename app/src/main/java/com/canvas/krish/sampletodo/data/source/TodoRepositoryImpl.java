@@ -113,7 +113,10 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
     @Override
     public void deleteTodo(UUID todoId) {
+        String deleteStatement = "DELETE FROM" + TodoTable.NAME +
+                                    " WHERE " + TodoTable.Cols.UUID + " = " + todoId.toString();
 
+        mDatabase.execSQL(deleteStatement);
     }
 
     @Override
