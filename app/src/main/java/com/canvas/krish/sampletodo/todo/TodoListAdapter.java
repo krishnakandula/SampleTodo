@@ -27,12 +27,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
     private Context mContext;
     private List<Todo> data;
-    private TodoItemViewChangeListener mChangeListenener;
+    private TodoItemViewChangeListener mChangeListener;
 
-    protected TodoListAdapter(Context context, TodoItemViewChangeListener changeListenener){
+    protected TodoListAdapter(Context context, TodoItemViewChangeListener changeListener){
         mContext = context;
         data = new ArrayList<>();
-        mChangeListenener = changeListenener;
+        mChangeListener = changeListener;
     }
 
     @Override
@@ -99,7 +99,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         public TodoListViewHolder(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
-            completedTodoChkbox.setOnCheckedChangeListener(completedTodoChkboxListener);
+            completedTodoChkbox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mChangeListener.onCompletedChanged(todoId, completedTodoChkbox.isChecked());
+                }
+            });
         }
 
         public void onBind(Todo todo){
@@ -107,14 +112,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
             mTextView.setText(todo.getText());
             completedTodoChkbox.setChecked(todo.isCompleted());
         }
-
-        private CompoundButton.OnCheckedChangeListener completedTodoChkboxListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //Relay check back to fragment
-                mChangeListenener.onCompletedChanged(todoId, isChecked);
-            }
-        };
     }
 
     /**
