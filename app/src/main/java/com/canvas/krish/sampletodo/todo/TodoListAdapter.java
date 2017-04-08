@@ -99,12 +99,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         public TodoListViewHolder(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
-            completedTodoChkbox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mChangeListener.onCompletedChanged(todoId, completedTodoChkbox.isChecked());
-                }
-            });
+            completedTodoChkbox.setOnClickListener(v -> mChangeListener.onCompletedChanged(todoId, completedTodoChkbox.isChecked()));
         }
 
         public void onBind(Todo todo){

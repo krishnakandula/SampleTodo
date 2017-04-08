@@ -70,17 +70,12 @@ public class TodoFragment extends Fragment implements TodoContract.View{
         mUnbinder = ButterKnife.bind(this, view);
 
         setupRecyclerView();
-        listSwipeRefreshLayout.setOnRefreshListener(onSwipeRefreshListener);
+        listSwipeRefreshLayout.setOnRefreshListener(() -> mPresenter.loadTodos());
         return view;
     }
 
     private void setupRecyclerView(){
-        mAdapter = new TodoListAdapter(getContext(), new TodoItemViewChangeListener() {
-            @Override
-            public void onCompletedChanged(UUID todoId, boolean isCompleted) {
-                mPresenter.completeTodo(todoId, isCompleted);
-            }
-        });
+        mAdapter = new TodoListAdapter(getContext(), (todoId, isCompleted) -> mPresenter.completeTodo(todoId, isCompleted));
         todoRecyclerView.setAdapter(mAdapter);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -127,11 +122,4 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     public void moveTodoToBottom(UUID todoId) {
         mAdapter.moveTodoItemToBottom(todoId);
     }
-
-    private SwipeRefreshLayout.OnRefreshListener onSwipeRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            mPresenter.loadTodos();
-        }
-    };
 }
