@@ -2,6 +2,7 @@ package com.canvas.krish.sampletodo.todo;
 
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
+import com.canvas.krish.sampletodo.data.source.TodoRepositoryImpl;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,6 @@ public class TodoPresenter implements TodoContract.Presenter {
     TodoRepositoryContract mTodoRepository;
     private TodoContract.View mTodoView;
 
-    @Inject
     public TodoPresenter(TodoRepositoryContract todoRepository){
         mTodoRepository = todoRepository;
     }
@@ -76,7 +76,6 @@ public class TodoPresenter implements TodoContract.Presenter {
             //Move to bottom of list
             mTodoView.moveTodoToBottom(todoId);
         }
-
         //Update db
         mTodoRepository.getTodo(todoId, new TodoRepositoryContract.GetTodoCallback() {
             @Override

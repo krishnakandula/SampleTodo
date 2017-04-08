@@ -17,7 +17,6 @@ import dagger.Provides;
 @Module
 public class RepositoryModule {
 
-    @Singleton
     @Provides
     @Inject
     public TodoRepositoryContract providesTodo(Context context){

@@ -3,10 +3,12 @@ package com.canvas.krish.sampletodo;
 import android.app.Application;
 import android.content.Context;
 
+import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
 import com.canvas.krish.sampletodo.data.source.TodoRepositoryImpl;
 import com.canvas.krish.sampletodo.modules.ApplicationModule;
 import com.canvas.krish.sampletodo.modules.PresenterModule;
 import com.canvas.krish.sampletodo.modules.RepositoryModule;
+import com.canvas.krish.sampletodo.todo.TodoContract;
 import com.canvas.krish.sampletodo.todo.TodoFragment;
 
 import javax.inject.Singleton;
@@ -34,6 +36,8 @@ public class TodoApplication extends Application {
         mComponent = DaggerTodoApplication_ApplicationComponent
                 .builder()
                 .applicationModule(new ApplicationModule(this))
+                .presenterModule(new PresenterModule())
+                .repositoryModule(new RepositoryModule())
                 .build();
     }
 

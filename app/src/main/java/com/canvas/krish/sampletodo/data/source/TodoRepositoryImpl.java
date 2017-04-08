@@ -59,6 +59,17 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
         String[] whereArgs = new String[]{todoId.toString()};
 
         TodoCursorWrapper cursor = queryTodos(whereClause, whereArgs);
+        List<Todo> todos = new ArrayList<>();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                todos.add(cursor.getTodo());
+                cursor.moveToNext();
+            }
+            callback.onTodoLoaded(todos.get(0));
+        } else {
+            callback.onDataNotAvailable();
+        }
     }
 
     @Override
@@ -118,11 +129,12 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
 
         //Update db
         int completed = todo.isCompleted() ? 1 : 0;
+        String completedOn = todo.getCompletedOn() == null ? null : todo.getCompletedOn().toString();
         String updateStatement = "UPDATE " + TodoTable.NAME +
-                                    " SET " + TodoTable.Cols.TEXT + " = " + todo.getText() +
+                                    " SET " + TodoTable.Cols.TEXT + " = '" + todo.getText() + "'" +
                                     ", " + TodoTable.Cols.COMPLETED + " = " + completed +
-                                    ", " + TodoTable.Cols.COMPLETED_ON + " = " + todo.getCompletedOn().toString() +
-                                    " WHERE " + TodoTable.Cols.UUID + " = " + todo.getUuid().toString();
+                                    ", " + TodoTable.Cols.COMPLETED_ON + " = " + completedOn +
+                                    " WHERE " + TodoTable.Cols.UUID + " = '" + todo.getUuid().toString() + "'";
         mDatabase.execSQL(updateStatement);
     }
 }
