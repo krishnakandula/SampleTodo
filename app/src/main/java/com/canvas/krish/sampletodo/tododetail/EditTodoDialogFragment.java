@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.EditText;
 
 import com.canvas.krish.sampletodo.R;
 import com.canvas.krish.sampletodo.TodoApplication;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -30,6 +32,9 @@ public class EditTodoDialogFragment extends DialogFragment implements TodoDetail
     TodoDetailContract.Presenter mPresenter;
     private Unbinder mUnbinder;
     public static String DIALOG_ID_KEY = "todo_id_key";
+
+    @BindView(R.id.fragment_dialog_edit_todo_edit_text)
+    EditText editText;
 
     public static EditTodoDialogFragment init(UUID todoId) {
         Bundle args = new Bundle();
@@ -81,11 +86,11 @@ public class EditTodoDialogFragment extends DialogFragment implements TodoDetail
 
     @Override
     public void showDetails(Todo todo) {
-
+        editText.setText(todo.getText());
     }
 
     @Override
     public void closeDetailView() {
-
+        this.dismiss();
     }
 }

@@ -45,6 +45,7 @@ public class TodoDetailPresenter implements TodoDetailContract.Presenter {
     public void onPositiveAction(Todo todo) {
         //Save to repository
         mRepository.updateTodo(todo);
+        view.closeDetailView();
     }
 
     @Override
