@@ -10,6 +10,7 @@ import com.canvas.krish.sampletodo.modules.PresenterModule;
 import com.canvas.krish.sampletodo.modules.RepositoryModule;
 import com.canvas.krish.sampletodo.todo.TodoContract;
 import com.canvas.krish.sampletodo.todo.TodoFragment;
+import com.canvas.krish.sampletodo.tododetail.EditTodoDialogFragment;
 
 import javax.inject.Singleton;
 
@@ -28,6 +29,7 @@ public class TodoApplication extends Application {
     @Component(modules = {PresenterModule.class, ApplicationModule.class, RepositoryModule.class})
     public interface ApplicationComponent {
         void inject(TodoFragment fragment);
+        void inject(EditTodoDialogFragment fragment);
     }
 
     @Override

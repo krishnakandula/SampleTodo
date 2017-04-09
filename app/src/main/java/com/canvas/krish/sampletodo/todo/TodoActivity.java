@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.canvas.krish.sampletodo.R;
 
-public class TodoActivity extends AppCompatActivity implements EditTodoDialogFragment.DialogActionListener{
+public class TodoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +23,4 @@ public class TodoActivity extends AppCompatActivity implements EditTodoDialogFra
         fm.beginTransaction().add(R.id.TodoActivity_Fragment_Container, todoFragment).commit();
     }
 
-    @Override
-    public void onPositiveButtonClicked() {
-
-    }
-
-    @Override
-    public void onNegativeButtonClicked() {
-
-    }
 }
