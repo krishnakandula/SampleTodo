@@ -65,7 +65,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
        int fromIndex = getTodoLocation(todoId);
 
         //Move item in data list to end
-        if(fromIndex > 0)
+        if(fromIndex >= 0)
             moveItem(fromIndex, data.size() - 1);
     }
 
