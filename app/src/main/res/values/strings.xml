@@ -2,4 +2,7 @@
     <string name="app_name">SampleTodo</string>
 
     <string name="fragment_todo_add_todo_btn_txt">Add Todo</string>
+
+    <string name="edit_todo_dialog_fragment_positive_button">Ok></string>
+    <string name="edit_todo_dialog_fragment_negative_button">Cancel</string>
 </resources>
