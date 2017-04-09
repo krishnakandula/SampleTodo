@@ -17,7 +17,7 @@ public interface TodoDetailContract {
     interface Presenter {
         void start(View view, UUID todoId);
         void loadTodoDetails();
-        void onPositiveAction(Todo todo);
+        void onPositiveAction(String text);
         void onNegativeAction();
     }
 }

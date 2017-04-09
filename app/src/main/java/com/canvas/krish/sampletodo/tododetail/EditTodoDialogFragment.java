@@ -30,11 +30,12 @@ public class EditTodoDialogFragment extends DialogFragment implements TodoDetail
 
     @Inject
     TodoDetailContract.Presenter mPresenter;
+    private EditTodoDialogListener callback;
     private Unbinder mUnbinder;
     public static String DIALOG_ID_KEY = "todo_id_key";
 
     @BindView(R.id.fragment_dialog_edit_todo_edit_text)
-    EditText editText;
+    EditText mEditText;
 
     public static EditTodoDialogFragment init(UUID todoId) {
         Bundle args = new Bundle();
@@ -51,6 +52,13 @@ public class EditTodoDialogFragment extends DialogFragment implements TodoDetail
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        try {
+            callback = (EditTodoDialogListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().getClass().getSimpleName() +
+                    " must implement " +
+                    EditTodoDialogListener.class.getSimpleName());
+        }
     }
 
     @Override
@@ -75,22 +83,25 @@ public class EditTodoDialogFragment extends DialogFragment implements TodoDetail
         mUnbinder = ButterKnife.bind(this, view);
         builder.setView(view)
                 .setPositiveButton(R.string.edit_todo_dialog_fragment_positive_button, (dialog, which) -> {
-
+                    mPresenter.onPositiveAction(mEditText.getText().toString());
+                    callback.onPositiveDismiss();
                 })
-                .setNegativeButton(R.string.edit_todo_dialog_fragment_negative_button, (dialog, which) -> {
-
-                });
+                .setNegativeButton(R.string.edit_todo_dialog_fragment_negative_button, (dialog, which) -> mPresenter.onNegativeAction());
 
         return builder.create();
     }
 
     @Override
     public void showDetails(Todo todo) {
-        editText.setText(todo.getText());
+        mEditText.setText(todo.getText());
     }
 
     @Override
     public void closeDetailView() {
         this.dismiss();
+    }
+
+    public interface EditTodoDialogListener {
+        void onPositiveDismiss();
     }
 }
