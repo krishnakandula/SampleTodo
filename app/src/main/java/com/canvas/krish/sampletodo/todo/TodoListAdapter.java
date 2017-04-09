@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.canvas.krish.sampletodo.R;
@@ -60,7 +59,34 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
      * Moves a todoitem to the bottom of the list
      * @param todoId
      */
-    public void moveTodoItemToBottom(UUID todoId){
+    public void moveItemToBottom(UUID todoId){
+       int fromIndex = getTodoLocation(todoId);
+
+        //Move item in data list to end
+        if(fromIndex > 0)
+            moveItem(fromIndex, data.size() - 1);
+    }
+
+    public void moveItemToTop(UUID todoId){
+        int fromIndex = getTodoLocation(todoId);
+
+        if(fromIndex > 0)
+            moveItem(fromIndex, 0);
+    }
+
+    private void moveItem(int fromIndex, int endIndex){
+        Todo todo = data.get(fromIndex);
+        data.remove(fromIndex);
+        data.add(endIndex, todo);
+        notifyItemMoved(fromIndex, endIndex);
+    }
+
+    /**
+     * Gets the index of an item in data
+     * @param todoId the item to get the index of
+     * @return index location of item, < 0 if item not found
+     */
+    private int getTodoLocation(UUID todoId){
         int todoIndex = 0; //Not found
         boolean found = false;
 
@@ -73,13 +99,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
             todoIndex++;
         }
 
-        //Move item in data list to end
-        if(found){
-            Todo todo = data.get(todoIndex);
-            data.remove(todoIndex);
-            data.add(todo);
-            notifyItemMoved(todoIndex, data.size() - 1);
-        }
+        if(found)
+            return todoIndex;
+        else
+            return -1;
     }
 
     @Override

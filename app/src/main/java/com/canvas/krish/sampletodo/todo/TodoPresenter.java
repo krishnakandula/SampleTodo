@@ -2,12 +2,9 @@ package com.canvas.krish.sampletodo.todo;
 
 import com.canvas.krish.sampletodo.data.models.Todo;
 import com.canvas.krish.sampletodo.data.source.TodoRepositoryContract;
-import com.canvas.krish.sampletodo.data.source.TodoRepositoryImpl;
 
 import java.util.List;
 import java.util.UUID;
-
-import javax.inject.Inject;
 
 /**
  * Created by Krishna Chaitanya Kandula on 3/31/2017.
@@ -75,7 +72,10 @@ public class TodoPresenter implements TodoContract.Presenter {
             mTodoView.showTodoCompleted();
             //Move to bottom of list
             mTodoView.moveTodoToBottom(todoId);
+        } else {
+            mTodoView.moveTodoToTop(todoId);
         }
+
         //Update db
         mTodoRepository.getTodo(todoId, new TodoRepositoryContract.GetTodoCallback() {
             @Override

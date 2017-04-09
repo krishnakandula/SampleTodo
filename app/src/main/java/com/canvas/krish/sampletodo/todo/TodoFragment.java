@@ -26,8 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static com.canvas.krish.sampletodo.todo.TodoListAdapter.*;
-
 /**
  * Created by Krishna Chaitanya Kandula on 3/31/2017.
  */
@@ -120,6 +118,11 @@ public class TodoFragment extends Fragment implements TodoContract.View{
 
     @Override
     public void moveTodoToBottom(UUID todoId) {
-        mAdapter.moveTodoItemToBottom(todoId);
+        mAdapter.moveItemToBottom(todoId);
+    }
+
+    @Override
+    public void moveTodoToTop(UUID todoId) {
+        mAdapter.moveItemToTop(todoId);
     }
 }

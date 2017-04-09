@@ -107,7 +107,8 @@ public class TodoRepositoryImpl implements TodoRepositoryContract {
                                         whereArgs,
                                         null,
                                         null,
-                                        null);
+                                        TodoTable.Cols.COMPLETED + " ASC");
+
         return new TodoCursorWrapper(cursor);
     }
 
