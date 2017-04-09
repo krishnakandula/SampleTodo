@@ -2,6 +2,7 @@ package com.canvas.krish.sampletodo.todo;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     private Context mContext;
     private List<Todo> data;
     private TodoItemViewListener mChangeListener;
+    private static final String LOG_TAG = TodoListAdapter.class.getSimpleName();
 
     protected TodoListAdapter(Context context, TodoItemViewListener changeListener){
         mContext = context;
@@ -117,25 +119,27 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         @BindView(R.id.itemview_todolist_completed_chkbox)
         CheckBox completedTodoChkbox;
 
-        private UUID todoId;
+        private Todo todo;
 
         public TodoListViewHolder(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
-            completedTodoChkbox.setOnClickListener(v -> mChangeListener.onCompletedChanged(todoId, completedTodoChkbox.isChecked()));
+            completedTodoChkbox.setOnClickListener(v -> mChangeListener.onCompletedChanged(todo.getUuid(), completedTodoChkbox.isChecked()));
+            mTextView.setOnClickListener(v -> mChangeListener.onTextClicked(todo));
         }
 
         public void onBind(Todo todo){
-            this.todoId = todo.getUuid();
+            this.todo = todo;
             mTextView.setText(todo.getText());
             completedTodoChkbox.setChecked(todo.isCompleted());
         }
     }
 
     /**
-     * Interface for getting changes from TodoListAdapter
+     * Interface for getting events from TodoListAdapter
      */
     interface TodoItemViewListener {
         void onCompletedChanged(UUID todoId, boolean isCompleted);
+        void onTextClicked(Todo todo);
     }
 }

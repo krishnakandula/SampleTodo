@@ -19,11 +19,13 @@ public interface TodoContract {
         void showMessage(String message);
         void moveTodoToBottom(UUID todoId);
         void moveTodoToTop(UUID todoId);
+        void showTodoDetails(UUID todoId);
     }
 
     interface Presenter extends BasePresenter<View> {
         void loadTodos();
         void addNewTodo();
         void completeTodo(UUID todoId, boolean isCompleted);
+        void onTodoClicked(UUID todoId);
     }
 }

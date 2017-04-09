@@ -2,10 +2,13 @@ package com.canvas.krish.sampletodo.todo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import com.canvas.krish.sampletodo.R;
 import com.canvas.krish.sampletodo.TodoApplication;
 import com.canvas.krish.sampletodo.data.models.Todo;
+import com.canvas.krish.sampletodo.tododetail.EditTodoDialogFragment;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +40,7 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     TodoContract.Presenter mPresenter;
     private Unbinder mUnbinder;
     private TodoListAdapter mAdapter;
+    private static final String LOG_TAG = TodoFragment.class.getSimpleName();
 
     @BindView(R.id.TodoFragment_Todo_RecyclerView)
     RecyclerView todoRecyclerView;
@@ -73,7 +78,17 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     }
 
     private void setupRecyclerView(){
-        mAdapter = new TodoListAdapter(getContext(), (todoId, isCompleted) -> mPresenter.completeTodo(todoId, isCompleted));
+        mAdapter = new TodoListAdapter(getContext(), new TodoListAdapter.TodoItemViewListener() {
+            @Override
+            public void onCompletedChanged(UUID todoId, boolean isCompleted) {
+                mPresenter.completeTodo(todoId, isCompleted);
+            }
+
+            @Override
+            public void onTextClicked(Todo todo) {
+                mPresenter.onTodoClicked(todo.getUuid());
+            }
+        });
         todoRecyclerView.setAdapter(mAdapter);
         todoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -114,6 +129,14 @@ public class TodoFragment extends Fragment implements TodoContract.View{
     @Override
     public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showTodoDetails(UUID todoId) {
+        //Open fragment here
+        Log.d(LOG_TAG, "SHOW TODO DETAILS");
+        DialogFragment detailDialog = EditTodoDialogFragment.init(todoId);
+        detailDialog.show(getChildFragmentManager(), "todo_detail_dialog");
     }
 
     @Override

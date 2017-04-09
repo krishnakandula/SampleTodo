@@ -90,4 +90,9 @@ public class TodoPresenter implements TodoContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void onTodoClicked(UUID todoId) {
+        mTodoView.showTodoDetails(todoId);
+    }
 }
